@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class PonyBoxManager : MonoBehaviour
     public ClickMode ponyClickMode;
 
     public List<Texture2D> defoultPonies;
+
     private void Start()
     {
         ponies = new List<UnifiedPonyObject>();

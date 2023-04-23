@@ -7,8 +7,6 @@ public class SettingsMenu : MonoBehaviour
 {
     void Start()
     {
-        gameObject.SetActive(false);
-
         if (Screen.fullScreen != true)
         {
             fullScreenToggle.click();

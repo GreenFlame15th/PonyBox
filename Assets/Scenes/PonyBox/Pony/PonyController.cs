@@ -11,16 +11,18 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
     public UnifiedPonyObject upo;
     public Collider2D collider;
 
-    public bool inQueue = false;
+    public bool inSpawningQueue = false;
+
     public override void Fold()
     {
-        inQueue = true;
-        base.Fold();
-    }
-
-    public override void DeQueue()
-    {
-        inQueue = false;
+        if(inSpawningQueue)
+        {
+            inSpawningQueue = false;
+        }
+        else
+        {
+            base.Fold();
+        }
     }
 
     private void OnEnable()
@@ -74,7 +76,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
 
     public void addRanomeForceOnClick()
     {
-        if (rigidBody.velocity.x != 0 && rigidBody.velocity.y != 0)
+        if (rigidBody.velocity.x == 0 && rigidBody.velocity.y == 0)
         {
             addRanomeForce();
         }

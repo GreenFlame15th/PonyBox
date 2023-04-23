@@ -15,7 +15,7 @@ D:/Evangelina/Hobby/PonyBox
 -logFile
 Logs/AssetImportWorker2.log
 -srvPort
-52155
+64146
 Successfully changed project path to: D:/Evangelina/Hobby/PonyBox
 D:/Evangelina/Hobby/PonyBox
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,11 +47,11 @@ D:/Evangelina/Hobby/PonyBox
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [8928] Host "[IP] 192.168.0.107 [Port] 0 [Flags] 2 [Guid] 2543364290 [EditorId] 2543364290 [Version] 1048832 [Id] WindowsEditor(7,GF-DeskTop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [21548] Host "[IP] 192.168.0.107 [Port] 0 [Flags] 2 [Guid] 697047350 [EditorId] 697047350 [Version] 1048832 [Id] WindowsEditor(7,GF-DeskTop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [8928] Host "[IP] 192.168.0.107 [Port] 0 [Flags] 2 [Guid] 2543364290 [EditorId] 2543364290 [Version] 1048832 [Id] WindowsEditor(7,GF-DeskTop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [21548] Host "[IP] 192.168.0.107 [Port] 0 [Flags] 2 [Guid] 697047350 [EditorId] 697047350 [Version] 1048832 [Id] WindowsEditor(7,GF-DeskTop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 254.60 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 717.70 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.23f1 (213b516bf396)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Resources/UnitySubsystems
@@ -67,49 +67,48 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56352
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56216
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
-Registered in 0.351938 seconds.
+Registered in 0.230553 seconds.
 Native extension for LinuxStandalone target not found
 Native extension for WindowsStandalone target not found
 Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 299.88 ms, found 4 plugins.
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 416.77 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  8.014 seconds
+- Completed reload, in  3.941 seconds
 Domain Reload Profiling:
-	ReloadAssembly (8016ms)
-		BeginReloadAssembly (1189ms)
+	ReloadAssembly (3943ms)
+		BeginReloadAssembly (485ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (27ms)
-		EndReloadAssembly (3147ms)
-			LoadAssemblies (1145ms)
+			CreateAndSetChildDomain (4ms)
+		EndReloadAssembly (2569ms)
+			LoadAssemblies (478ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (1402ms)
+			SetupTypeCache (550ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (163ms)
-			SetupLoadedEditorAssemblies (1110ms)
+			RebuildScriptCaches (175ms)
+			SetupLoadedEditorAssemblies (1580ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (68ms)
+				InitializePlatformSupportModulesInManaged (92ms)
 				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (300ms)
-				BeforeProcessingInitializeOnLoad (3ms)
-				ProcessInitializeOnLoadAttributes (584ms)
-				ProcessInitializeOnLoadMethodAttributes (154ms)
+				RefreshPlugins (417ms)
+				BeforeProcessingInitializeOnLoad (4ms)
+				ProcessInitializeOnLoadAttributes (739ms)
+				ProcessInitializeOnLoadMethodAttributes (324ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.021840 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image D:\Evangelina\Hobby\PonyBox\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image D:\Evangelina\Hobby\PonyBox\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Registered in 0.027112 seconds.

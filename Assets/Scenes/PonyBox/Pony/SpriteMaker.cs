@@ -1,6 +1,7 @@
 using B83.Image.GIF;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class SpriteMaker : MonoBehaviour
@@ -25,11 +26,16 @@ public class SpriteMaker : MonoBehaviour
         {
             while(ponyQueue.TryDequeue(out PonyController pony))
             {
-                if(!pony.inQueue)
+                if(pony.inSpawningQueue)
                 {
+                    pony.inSpawningQueue = false;
                     pony.gameObject.SetActive(true);
                     pony.InitPush();
                     yield return new WaitForSeconds(spawnDelay);
+                }
+                else
+                {
+                    pony.Fold();
                 }
             }
             yield return new WaitForSeconds(spawnDelay);
@@ -76,10 +82,12 @@ public class SpriteMaker : MonoBehaviour
         }
     }
 
-    public void MakePonyFromGif(string failPath, bool animatePonyGridElment = true)
+    public void MakePonyFromGif(byte[] data, bool animatePonyGridElment = true)
     {
-        GIFLoader loader = new GIFLoader();
-        GIFImage image = loader.Load(failPath);
+        MemoryStream memoryStream = new MemoryStream(data);
+        BinaryReader binaryReader = new BinaryReader(memoryStream);
+  
+        GIFImage image = new GIFLoader().Load(binaryReader);
         Texture2D tex = new Texture2D(image.screen.width * image.imageData.Count, image.screen.height);
         var colors = tex.GetPixels32();
         for (int i = 0; i < image.imageData.Count; i++)
@@ -88,6 +96,8 @@ public class SpriteMaker : MonoBehaviour
         }
         tex.SetPixels32(colors);
         tex.Apply();
+
+        binaryReader.Close();
 
         MakePonyFromSprite(tex, image.imageData.Count, animatePonyGridElment);
     }
@@ -111,6 +121,8 @@ public class SpriteMaker : MonoBehaviour
     {
         PonyController pony = MakeInstance(upo);
         pony.gameObject.SetActive(false);
+        pony.collider.enabled = false;
+        pony.inSpawningQueue = true;
         ponyQueue.Enqueue(pony);
     }
 
