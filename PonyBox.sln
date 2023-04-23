@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFileBrowser.Runtime",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{CECB345D-CD7B-A8C7-144B-AB9F235F6845}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeFilePicker.Runtime", "NativeFilePicker.Runtime.csproj", "{F5ECE5AB-87DF-06F5-8B8F-91442870EE46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeFilePicker.Editor", "NativeFilePicker.Editor.csproj", "{70D98AB8-C221-711A-5808-092FDFDA2375}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{CECB345D-CD7B-A8C7-144B-AB9F235F6845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECB345D-CD7B-A8C7-144B-AB9F235F6845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CECB345D-CD7B-A8C7-144B-AB9F235F6845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5ECE5AB-87DF-06F5-8B8F-91442870EE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5ECE5AB-87DF-06F5-8B8F-91442870EE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5ECE5AB-87DF-06F5-8B8F-91442870EE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5ECE5AB-87DF-06F5-8B8F-91442870EE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D98AB8-C221-711A-5808-092FDFDA2375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D98AB8-C221-711A-5808-092FDFDA2375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D98AB8-C221-711A-5808-092FDFDA2375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D98AB8-C221-711A-5808-092FDFDA2375}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

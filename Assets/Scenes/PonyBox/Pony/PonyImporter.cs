@@ -1,79 +1,122 @@
-using SimpleFileBrowser;
 using System;
 using System.Collections;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using Application = UnityEngine.Application;
+
+#if UNITY_ANDROID
+using NativeFilePickerNamespace;
+#else
+using SimpleFileBrowser;
+#endif
 
 public class PonyImporter : MonoBehaviour
 {
+
+#if UNITY_WEBGL
+	public void fileExlorer()
+	{
+		PonyBoxManager.instance.alarte.Invoke("Unable to import ponies", "Importing ponies in not supported in web browser of the game, reload page to restore defoult ponies");
+	}
+#else
+
+#if UNITY_ANDROID
+	private void loadFromFiles()
+	{
+		NativeFilePicker.PickMultipleFiles(
+			(String[] paths) =>
+			{
+				if (paths != null)
+					loadFilesFromString(paths);
+			},
+			new string[] { "image/png", "image/jpeg", "image/gif" });
+	}
+#endif
 	void Start()
 	{
 
 #if UNITY_ANDROID
-		FileBrowser.SetFilters(true, new FileBrowser.Filter("Images", ".jpg", ".png")); ;
 #else
 		FileBrowser.SetFilters(true, new FileBrowser.Filter("Images", ".jpg", ".png", ".gif"));
-#endif
 		FileBrowser.SetDefaultFilter(".jpg");
 		FileBrowser.SetExcludedExtensions(".lnk", ".tmp", ".zip", ".rar", ".exe");
 		FileBrowser.AddQuickLink("Downloads", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads", null);
 		FileBrowser.AddQuickLink("Game Location", "..\\", null);
+#endif
 	}
 
 	public void fileExlorer()
 	{
-#if UNITY_WEBGL || UNITY_ANDROID
-		PonyBoxManager.instance.alarte.Invoke("Unable to import ponies", "Importing ponies in not supported in browser and adroid version, reload page to restore defoult ponies");
+#if UNITY_ANDROID
+
+		switch (NativeFilePicker.CheckPermission())
+		{
+			case NativeFilePicker.Permission.Denied:
+				PonyBoxManager.instance.alarte.Invoke("Cannot acess fiels", "Open setting and enable file acess permison to upload your ponies");
+				break;
+			case NativeFilePicker.Permission.Granted:
+				loadFromFiles();
+				break;
+			case NativeFilePicker.Permission.ShouldAsk:
+				loadFromFiles();
+				break;
+			default:
+				break;
+		}
+
 #else
 		StartCoroutine(ShowLoadDialogCoroutine());
-	#endif
 	}
 
 	IEnumerator ShowLoadDialogCoroutine()
 	{
 		yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.FilesAndFolders, true, null, null, "Load Files and Folders", "Load");
-
 		if (FileBrowser.Success)
 		{
-			StringBuilder errorLog = new StringBuilder();
+			loadFilesFromString(FileBrowser.Result);
+		}
+#endif
+	}
 
-			SpriteMaker spriteMaker = PonyBoxManager.instance.spriteMaker;
-			// Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
-			for (int i = 0; i < FileBrowser.Result.Length; i++)
+	public void loadFilesFromString(String[] files)
+	{
+		StringBuilder errorLog = new StringBuilder();
+
+		SpriteMaker spriteMaker = PonyBoxManager.instance.spriteMaker;
+		// Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
+		for (int i = 0; i < files.Length; i++)
+		{
+			try
 			{
-				try
+				if (files[i].EndsWith(".png") || files[i].EndsWith(".jpg"))
 				{
-					if (FileBrowser.Result[i].EndsWith(".png") || FileBrowser.Result[i].EndsWith(".jpg"))
-					{
-						spriteMaker.MakePonyFromPng(File.ReadAllBytes(FileBrowser.Result[i]));
+					spriteMaker.MakePonyFromPng(File.ReadAllBytes(files[i]));
 
-					}
-					else if (FileBrowser.Result[i].EndsWith(".gif"))
-					{
-						spriteMaker.MakePonyFromGif(File.ReadAllBytes(FileBrowser.Result[i]));
-					}
 				}
-				catch (Exception e)
+				else if (files[i].EndsWith(".gif"))
 				{
+					spriteMaker.MakePonyFromGif(File.ReadAllBytes(files[i]));
+				}
+			}
+			catch (Exception e)
+			{
 #if DEVELOPMENT_BUILD
 					PonyBoxManager.instance.alarte.Invoke("FileBrowser.Result[i", e.ToString());			
 #endif
-					errorLog.Append(FileBrowser.Result[i]+", ");
-					Debug.LogError(FileBrowser.Result[i] + " coused\n" + e.ToString());
-				}
+				errorLog.Append(files + ", ");
+				Debug.LogError(files + " coused\n" + e.ToString());
 			}
+		}
 
-			if (errorLog.Length != 0)
-            {
+		if (errorLog.Length != 0)
+		{
 #if DEVELOPMENT_BUILD
 				;
 #else
-				PonyBoxManager.instance.alarte.Invoke("Failed to import some files", errorLog.ToString() + "could not be loaded due to sprite making error");
+			PonyBoxManager.instance.alarte.Invoke("Failed to import some files", errorLog.ToString() + "could not be loaded due to sprite making error");
 #endif
-			}
 		}
 	}
-}
 
+#endif
+}
