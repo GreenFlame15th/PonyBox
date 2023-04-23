@@ -29,7 +29,6 @@ public class BoxScript : MonoBehaviour, IPointerClickHandler
         }
 
         onToggle.Invoke(this);
-
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -7,21 +7,55 @@ public class PonyBoxManager : MonoBehaviour
 {
     public Vector2 screenBounds;
     public static PonyBoxManager instance;
-    public List<PonyController> ponies;
+    public List<UnifiedPonyObject> ponies;
     private ulong bounceCount = 0;
     public Text countDisplay;
-    public Camera mainCamer;
     public GameObject heartPreFab;
     public GameObjectQueue heartQueue;
+    public PonyScriptable ponyScriptable;
 
-    //global for ponyPox
+    //object refrence
+    public Camera mainCamer;
+    public SpriteMaker spriteMaker;
+    public PonyManagmenMenu ponyManagmenMenu;
+    public AreYouSurePopUp areYouSurePopUp;
+    public Alarte alarte;
+
+    //global for ponyBox
     public bool sugarRush;
     public bool hearts;
+    public bool whirlpool;
+    public BorderMode borderMode;
+    public ClickMode ponyClickMode;
 
+    public List<Texture2D> defoultPonies;
     private void Start()
     {
-        instance = this;
+        ponies = new List<UnifiedPonyObject>();
         heartQueue = new GameObjectQueue(heartPreFab);
+
+        instance = this;
+        ponyManagmenMenu.UpdateSpawnDelay();
+        spriteMaker.StartSetUp();
+
+        loadDEfoultPonies();
+    }
+
+    public void loadDEfoultPonies()
+    {
+        for (int i = 0; i < defoultPonies.Count; i++)
+        {
+            UnifiedPonyObject upo = spriteMaker.MakePonyFromSprite(defoultPonies[i], 16, false);
+
+            if (upo != null)
+            {
+                upo.enqueueInstance();
+            }
+            else
+            {
+                Debug.Log("Faild to load defoult pony #" + i);
+            }
+        }
     }
 
     // Update is called once per frame

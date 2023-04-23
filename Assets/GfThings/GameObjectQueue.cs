@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameObjectQueue
 {
     private Queue<Queueable> gameObjects = new Queue<Queueable>();
-    [SerializeField] private GameObject preFab;
+    public GameObject preFab;
 
     public GameObjectQueue(GameObject preFab)
     {
@@ -24,7 +24,7 @@ public class GameObjectQueue
         
         Queueable queueable = GameObject.Instantiate(preFab).GetComponent<Queueable>();
         queueable.SetQueue(this);
-        queueable.GetComponent<Queueable>().DeQueue();
+        queueable.DeQueue();
         return queueable;
     }
 

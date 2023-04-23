@@ -56,16 +56,35 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scenes\PonyBox\SpriteMaker.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\PonyScriptable.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\PonyController.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\PonyBoxManager.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\SettingsMenu.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\HearScript.cs" />
-    <Compile Include="Assets\Scenes\PonyBox\HeartScriptable.cs" />
-    <Compile Include="Assets\GfThings\GameObjectQueue.cs" />
-    <Compile Include="Assets\GfThings\Queueable.cs" />
+    <Compile Include="Assets\GfThings\MiltySelect.cs" />
+    <Compile Include="Assets\GfThings\AreYouSurePopUp.cs" />
+    <Compile Include="Assets\GfThings\MiltySelectElement.cs" />
+    <Compile Include="Assets\Scenes\Debug\DebugVectorFlip.cs" />
+    <Compile Include="Assets\Scenes\Debug\Pointer.cs" />
+    <Compile Include="Assets\GfThings\AutoExpandGridLayoutGroup.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\UnifiedPonyObject.cs" />
     <Compile Include="Assets\GfThings\BoxScript.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\SettingsMenu.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\SpriteMaker.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\ClickMode.cs" />
+    <Compile Include="Assets\Scenes\Debug\FileExplorerDebug.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\PonyScriptable.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\PonyController.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\StaticAnimatorImage.cs" />
+    <Compile Include="Assets\GfThings\Queueable.cs" />
+    <Compile Include="Assets\GfThings\Vector2Squere.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Heart\HeartScriptable.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\PonyManagmenMenu.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\PonyImporter.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\PonyGridElement.cs" />
+    <Compile Include="Assets\GfThings\Alarte.cs" />
+    <Compile Include="Assets\GfThings\GifLoader.cs" />
+    <Compile Include="Assets\GfThings\Vector2Fllipper.cs" />
+    <Compile Include="Assets\GfThings\Funcion.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Heart\HearScript.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\PonyBoxManager.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\BorderMode.cs" />
+    <Compile Include="Assets\GfThings\GameObjectQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -858,6 +877,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="SimpleFileBrowser.Runtime.csproj">
+      <Project>{45992404-754B-9856-3093-FD11A1DC0746}</Project>
+      <Name>SimpleFileBrowser.Runtime</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

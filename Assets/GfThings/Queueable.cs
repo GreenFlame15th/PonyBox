@@ -7,7 +7,7 @@ public class Queueable : MonoBehaviour
     private GameObjectQueue queue;
     public void SetQueue(GameObjectQueue queue) { this.queue = queue; }
 
-    public void Fold()
+    public virtual void Fold()
     {
         queue.Enqueue(this);
         gameObject.SetActive(false);
