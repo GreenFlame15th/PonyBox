@@ -9,7 +9,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
 {
     public Rigidbody2D rigidBody;
     public UnifiedPonyObject upo;
-    public Collider2D collider;
+    public Collider2D ponyCollider;
 
     public bool inSpawningQueue = false;
 
@@ -27,16 +27,41 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
 
     private void OnEnable()
     {
-        if (upo != null)
-            StartAnimatsion();
-
-
-        collider.enabled = true;
+        ponyCollider.enabled = true;
     }
 
     private void OnDisable()
     {
-        collider.enabled = false;
+        ponyCollider.enabled = false;
+    }
+    public float timer;
+    public int frame;
+    private void Update()
+    {
+        if(upo != null)
+        {
+            
+
+            float speed = Math.Abs(rigidBody.velocity.x + rigidBody.velocity.y);
+            if(speed > upo.scriptable.maxSpeed)
+            {
+                timer -= Time.deltaTime;
+            }
+            else
+            {
+                timer -= Time.deltaTime * upo.scriptable.walkingSpeedCurve.Evaluate(speed / upo.scriptable.maxSpeed);
+            }
+
+            if (timer < 0)
+            {
+                timer = upo.scriptable.delay;
+                spriteRenderer.sprite = upo.sprites[frame];
+                frame++;
+                if (frame >= upo.sprites.Length)
+                    frame = 0;
+
+            }
+        }
     }
 
     #region Animator
@@ -47,25 +72,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         this.upo = upo;
     }
 
-    public void StartAnimatsion()
-    {
-        StartCoroutine(Animator());
-    }
-
     private int currentFrame = 0;
-    private IEnumerator Animator()
-    {
-        while (true)
-        {
-            spriteRenderer.sprite = upo.sprites[currentFrame];
-            currentFrame++;
-            if (currentFrame >= upo.numberOfSprites)
-            {
-                currentFrame = 0;
-            }
-            yield return new WaitForSeconds(upo.scriptable.delay / (rigidBody.velocity.magnitude + 0.1f));
-        }
-    }
     #endregion
     #region addFroce
     public void OnPointerDown(PointerEventData eventData)
@@ -186,7 +193,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         }
 
         //sugar rush mode
-        if (PonyBoxManager.instance.sugarRush && !beginDraged && rigidBody.velocity.sqrMagnitude < upo.scriptable.speedLimit)
+        if (PonyBoxManager.instance.sugarRush && !beginDraged && Math.Abs(rigidBody.velocity.x + rigidBody.velocity.y) < upo.scriptable.speedLimit)
         {
             AddForwardForce();
         }

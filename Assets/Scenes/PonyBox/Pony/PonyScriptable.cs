@@ -17,4 +17,6 @@ public class PonyScriptable : ScriptableObject
     public float whirlpoolSpinForce;
     public float dragForce;
     public float pullInForceMultiplayer;
+    public float maxSpeed;
+    public AnimationCurve walkingSpeedCurve;
 }

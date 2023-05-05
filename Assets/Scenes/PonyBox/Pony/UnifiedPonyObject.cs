@@ -1,6 +1,6 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnifiedPonyObject
@@ -12,17 +12,24 @@ public class UnifiedPonyObject
     public List<PonyController> instances;
     public PonyGridElement ponyGridElement;
 
-    public UnifiedPonyObject() { instances = new List<PonyController>(); }
-
-    public void SetUp(List<Sprite> sprites, GameObject ponyGrid, GameObject ponyGridElmentPrefab, bool animate)
+    public UnifiedPonyObject()
     {
+        instances = new List<PonyController>();
         scriptable = PonyBoxManager.instance.ponyScriptable;
+    }
+
+    public void ReciveSprites(List<Sprite> sprites)
+    {
         this.sprites = sprites.ToArray();
         numberOfSprites = sprites.Count;
+    }
+
+    public void ReadyToGo()
+    {
         PonyBoxManager.instance.ponies.Add(this);
 
-        ponyGridElement = GameObject.Instantiate(ponyGridElmentPrefab, ponyGrid.transform).GetComponent<PonyGridElement>();
-        ponyGridElement.SetUp(this, animate);
+        ponyGridElement = GameObject.Instantiate(PonyBoxManager.instance.spriteMaker.ponyGridElmentPrefab, PonyBoxManager.instance.spriteMaker.ponyGrid.transform).GetComponent<PonyGridElement>();
+        ponyGridElement.SetUp(this);
     }
     public void addPonyController(PonyController instance)
     {

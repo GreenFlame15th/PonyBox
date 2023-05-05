@@ -10,14 +10,11 @@ public class StaticAnimatorImage : MonoBehaviour
     private int currentFrame = 0;
     public Image image;
 
-    public void StartAnimetsion(UnifiedPonyObject upo, bool animate = true)
+    public void StartAnimetsion(UnifiedPonyObject upo)
     {
         this.upo = upo;
-        if(gameObject.activeSelf && animate)
-        {
-            StartCoroutine(Animator());
-        }
-        
+        StartCoroutine(Animator());
+
     }
 
     private void OnEnable()
@@ -31,13 +28,19 @@ public class StaticAnimatorImage : MonoBehaviour
 
         while (true)
         {
-            image.sprite = upo.sprites[currentFrame];
-            currentFrame++;
-            if (currentFrame >= upo.numberOfSprites)
+            if(upo != null)
             {
-                currentFrame = 0;
+                currentFrame++;
+                if (currentFrame >= upo.numberOfSprites)
+                {
+                    currentFrame = 0;
+                }
+                image.sprite = upo.sprites[currentFrame];
+                yield return new WaitForSeconds(upo.scriptable.staticDelay);
             }
-            yield return new WaitForSeconds(upo.scriptable.staticDelay);
+            else
+                yield return new WaitForSeconds(0.1f);
+            
         }
     }
 

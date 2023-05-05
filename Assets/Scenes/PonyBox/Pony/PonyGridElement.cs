@@ -26,9 +26,9 @@ public class PonyGridElement : MonoBehaviour, IPointerClickHandler
         selector.SetActive(om);
     }
 
-    public void SetUp(UnifiedPonyObject upo, bool animate) 
+    public void SetUp(UnifiedPonyObject upo) 
     {
         this.upo = upo;
-        display.StartAnimetsion(upo, animate);
+        display.StartAnimetsion(upo);
     }
 }

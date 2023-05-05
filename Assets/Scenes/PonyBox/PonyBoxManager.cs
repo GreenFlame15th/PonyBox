@@ -30,6 +30,7 @@ public class PonyBoxManager : MonoBehaviour
     public ClickMode ponyClickMode;
 
     public List<Texture2D> defoultPonies;
+    public GameObject popUps;
 
     private void Start()
     {
@@ -47,6 +48,8 @@ public class PonyBoxManager : MonoBehaviour
     {
         for (int i = 0; i < defoultPonies.Count; i++)
         {
+            //need to be implemented;
+            /*
             UnifiedPonyObject upo = spriteMaker.MakePonyFromSprite(defoultPonies[i], 16, false);
 
             if (upo != null)
@@ -57,6 +60,7 @@ public class PonyBoxManager : MonoBehaviour
             {
                 Debug.Log("Faild to load defoult pony #" + i);
             }
+            */
         }
     }
 

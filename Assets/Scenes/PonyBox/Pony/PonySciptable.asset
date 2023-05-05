@@ -13,14 +13,39 @@ MonoBehaviour:
   m_Name: PonySciptable
   m_EditorClassIdentifier: 
   force: 150
-  delay: 0.05
+  delay: 0.0125
   staticDelay: 0.045
   selfRightingSpeed: 35
   backtoScreenForce: 50
-  speedLimit: 1
+  speedLimit: 0.1
   bouceLinency: 0.09
   minCollisonVelocty: 0.2
   whirlpoolPullForce: 93.6
   whirlpoolSpinForce: 7
   dragForce: 200
   pullInForceMultiplayer: 3
+  maxSpeed: 10
+  walkingSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

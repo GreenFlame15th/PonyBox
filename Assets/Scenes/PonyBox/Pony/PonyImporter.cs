@@ -16,7 +16,7 @@ public class PonyImporter : MonoBehaviour
 #if UNITY_WEBGL
 	public void fileExlorer()
 	{
-		PonyBoxManager.instance.alarte.Invoke("Unable to import ponies", "Importing ponies in not supported in web browser of the game, reload page to restore defoult ponies");
+		PonyBoxManager.instance.alarte.Invoke("Unable to import ponies", "Importing ponies in not supported in web browser of the game, reload page to restore default ponies");
 	}
 #else
 
@@ -90,12 +90,12 @@ public class PonyImporter : MonoBehaviour
 			{
 				if (files[i].EndsWith(".png") || files[i].EndsWith(".jpg"))
 				{
-					spriteMaker.MakePonyFromPng(File.ReadAllBytes(files[i]));
+					spriteMaker.makePony(File.ReadAllBytes(files[i]), false);
 
 				}
 				else if (files[i].EndsWith(".gif"))
 				{
-					spriteMaker.MakePonyFromGif(File.ReadAllBytes(files[i]));
+					spriteMaker.makePony(File.ReadAllBytes(files[i]), true);
 				}
 			}
 			catch (Exception e)
@@ -111,11 +111,13 @@ public class PonyImporter : MonoBehaviour
 		if (errorLog.Length != 0)
 		{
 #if DEVELOPMENT_BUILD
-				;
+
+#elif UNITY_EDITOR
+			Debug.LogError(errorLog.ToString());
 #else
 			PonyBoxManager.instance.alarte.Invoke("Failed to import some files", errorLog.ToString() + "could not be loaded due to sprite making error");
 #endif
-		}
+        }
 	}
 
 #endif

@@ -2301,6 +2301,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 56819bbb0c333924e8bcee02fea519fd, type: 3}
   - {fileID: 2800000, guid: 240fe84504dd12f45a550c27855611ab, type: 3}
   - {fileID: 2800000, guid: 4070285527c3c724abb6dd8709f6cd8b, type: 3}
+  popUps: {fileID: 602338674}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3039,6 +3040,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598656453}
   m_CullTransparentMesh: 1
+--- !u!1 &602338674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602338675}
+  m_Layer: 5
+  m_Name: PopUps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &602338675
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602338674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 737472533}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &605534020 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 335501287190927362, guid: ceb9e3dd6eadf2a4d8012695dfa271db, type: 3}
@@ -3457,6 +3494,7 @@ RectTransform:
   - {fileID: 1122486518}
   - {fileID: 1359655371}
   - {fileID: 2142589379}
+  - {fileID: 602338675}
   - {fileID: 1785682881}
   - {fileID: 1952859994}
   m_Father: {fileID: 0}
@@ -5006,6 +5044,7 @@ MonoBehaviour:
   spawnDelay: 2
   ponyGrid: {fileID: 477792809}
   ponyGridElmentPrefab: {fileID: 5685665286663972325, guid: 0740052efac2fa740b347e70edd577f4, type: 3}
+  animatsionConfigPreFab: {fileID: 5833275657466999892, guid: acbbe37efe2ad944c8ee50288e6fef79, type: 3}
 --- !u!4 &1119793071
 Transform:
   m_ObjectHideFlags: 0
@@ -7797,7 +7836,7 @@ RectTransform:
   m_Children:
   - {fileID: 502958786}
   m_Father: {fileID: 737472533}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8678,7 +8717,7 @@ RectTransform:
   m_Children:
   - {fileID: 2014622040}
   m_Father: {fileID: 737472533}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

@@ -101,8 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 8378189320757919511}
-  upo: {fileID: 0}
-  collider: {fileID: 7625844053293436562}
+  ponyCollider: {fileID: 7625844053293436562}
+  inSpawningQueue: 0
+  timer: 0
+  frame: 0
   spriteRenderer: {fileID: 999967395817274706}
 --- !u!50 &8378189320757919511
 Rigidbody2D:
