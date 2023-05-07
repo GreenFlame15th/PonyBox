@@ -26,6 +26,16 @@ public class MiltySelectElement : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void SoftToggle()
+    {
+        if (!on)
+        {
+            tick.SetActive(true);
+            on = true;
+            boardConroller.Toggled(gameObject.GetInstanceID());
+        }
+    }
+
     public void SetBoardConroller(MiltySelect boardConroller) { this.boardConroller = boardConroller; }
 
     public void off(int id)

@@ -88,15 +88,14 @@ public class PonyImporter : MonoBehaviour
 		{
 			try
 			{
-				if (files[i].EndsWith(".png") || files[i].EndsWith(".jpg"))
-				{
-					spriteMaker.makePony(File.ReadAllBytes(files[i]), false);
-
-				}
-				else if (files[i].EndsWith(".gif"))
+				if (files[i].EndsWith(".gif"))
 				{
 					spriteMaker.makePony(File.ReadAllBytes(files[i]), true);
 				}
+				else
+				{
+                    spriteMaker.makePony(File.ReadAllBytes(files[i]), false);
+                }
 			}
 			catch (Exception e)
 			{

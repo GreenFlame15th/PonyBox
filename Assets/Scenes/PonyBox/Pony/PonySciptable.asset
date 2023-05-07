@@ -49,3 +49,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  baseSpriteX: 45
+  baseSpriteY: 57
+  colliderPadding: 0.17

@@ -76,6 +76,7 @@
     <Compile Include="Assets\GfThings\Vector2Squere.cs" />
     <Compile Include="Assets\Scenes\PonyBox\Heart\HeartScriptable.cs" />
     <Compile Include="Assets\Scenes\PonyBox\Pony\PonyManagmenMenu.cs" />
+    <Compile Include="Assets\GfThings\Button.cs" />
     <Compile Include="Assets\Scenes\PonyBox\Pony\PonyImporter.cs" />
     <Compile Include="Assets\Scenes\PonyBox\Pony\PonyGridElement.cs" />
     <Compile Include="Assets\GfThings\Alarte.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="Assets\Scenes\PonyBox\PonyBoxManager.cs" />
     <Compile Include="Assets\Scenes\PonyBox\BorderMode.cs" />
     <Compile Include="Assets\GfThings\GameObjectQueue.cs" />
+    <Compile Include="Assets\GfThings\GraficToggle.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\HideUiClass.cs" />
+    <Compile Include="Assets\Scenes\PonyBox\Pony\DefoultPonies\DefoultPonies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

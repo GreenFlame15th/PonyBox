@@ -19,4 +19,7 @@ public class PonyScriptable : ScriptableObject
     public float pullInForceMultiplayer;
     public float maxSpeed;
     public AnimationCurve walkingSpeedCurve;
+    public float baseSpriteX;
+    public float baseSpriteY;
+    public float colliderPadding;
 }

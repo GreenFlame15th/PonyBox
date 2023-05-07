@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class PonyGridElement : MonoBehaviour, IPointerClickHandler
 {
@@ -28,7 +24,9 @@ public class PonyGridElement : MonoBehaviour, IPointerClickHandler
 
     public void SetUp(UnifiedPonyObject upo) 
     {
-        this.upo = upo;
+        this.upo = upo; 
         display.StartAnimetsion(upo);
+        display.transform.localScale =
+            new Vector3(1, upo.guide.ySclaeForPrewView, 1);
     }
 }

@@ -1,7 +1,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class UnifiedPonyObject
 {
@@ -11,6 +13,7 @@ public class UnifiedPonyObject
 
     public List<PonyController> instances;
     public PonyGridElement ponyGridElement;
+    public AnimatsionGuide guide;
 
     public UnifiedPonyObject()
     {
@@ -30,6 +33,7 @@ public class UnifiedPonyObject
 
         ponyGridElement = GameObject.Instantiate(PonyBoxManager.instance.spriteMaker.ponyGridElmentPrefab, PonyBoxManager.instance.spriteMaker.ponyGrid.transform).GetComponent<PonyGridElement>();
         ponyGridElement.SetUp(this);
+        ponyGridElement.display.transform.localScale = new Vector3(guide.scaleX, guide.scaleY, 1);
     }
     public void addPonyController(PonyController instance)
     {
@@ -88,4 +92,5 @@ public class UnifiedPonyObject
         PonyBoxManager.instance.ponies.Remove(this);
         GameObject.Destroy(ponyGridElement.gameObject);
     }
+    
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiltySelect : MonoBehaviour
 {
     private List<MiltySelectElement> elemts = new List<MiltySelectElement>();
-    void Start()
+    void Awake()
     {
         bool found = false;
         for (int i = 0; i < transform.childCount; i++)

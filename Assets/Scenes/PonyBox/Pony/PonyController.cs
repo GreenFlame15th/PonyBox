@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -9,7 +12,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
 {
     public Rigidbody2D rigidBody;
     public UnifiedPonyObject upo;
-    public Collider2D ponyCollider;
+    public BoxCollider2D ponyCollider;
 
     public bool inSpawningQueue = false;
 
@@ -28,6 +31,8 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
     private void OnEnable()
     {
         ponyCollider.enabled = true;
+
+        resizeColider();
     }
 
     private void OnDisable()
@@ -42,7 +47,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         {
             
 
-            float speed = Math.Abs(rigidBody.velocity.x + rigidBody.velocity.y);
+            float speed = Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y);
             if(speed > upo.scriptable.maxSpeed)
             {
                 timer -= Time.deltaTime;
@@ -54,25 +59,25 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
 
             if (timer < 0)
             {
+                if (frame >= upo.sprites.Length)
+                    frame = 0;
                 timer = upo.scriptable.delay;
                 spriteRenderer.sprite = upo.sprites[frame];
                 frame++;
-                if (frame >= upo.sprites.Length)
-                    frame = 0;
-
             }
         }
     }
-
     #region Animator
     public SpriteRenderer spriteRenderer;
     
     public void SetUp(UnifiedPonyObject upo)
     {
         this.upo = upo;
+        float spriteScale = upo.scriptable.baseSpriteY / upo.sprites[0].texture.height;
+        spriteRenderer.transform.localScale = new Vector3(spriteScale, spriteScale, 1);
+        spriteRenderer.transform.localScale = new Vector3(upo.guide.scaleX, upo.guide.scaleY, 1);
+        resizeColider();
     }
-
-    private int currentFrame = 0;
     #endregion
     #region addFroce
     public void OnPointerDown(PointerEventData eventData)
@@ -132,6 +137,22 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         AddScreenCenterForce(1f);
     }
 
+    public void resizeColider()
+    {
+        if(upo != null)
+        {
+            spriteRenderer.sprite = upo.sprites[0];
+            Vector2 size = spriteRenderer.size;
+            size *= spriteRenderer.transform.localScale;
+            Debug.Log(size.ToString());
+            size.x -= upo.scriptable.colliderPadding;
+            size.y -= upo.scriptable.colliderPadding;
+            size.x = Math.Max(size.x, 0.01f);
+            size.y = Math.Max(size.y, 0.01f);
+            ponyCollider.size = size;
+        }
+    }
+
     public void AddScreenCenterForce(float detlataTime)
     {
         rigidBody.AddForce(getScreenCenterDirecion() * upo.scriptable.backtoScreenForce * detlataTime);
@@ -145,7 +166,9 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
     {
         hasScreenSenterDrecion = false;
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 0), upo.scriptable.selfRightingSpeed * Time.deltaTime);
+        //selfRighting
+        if(upo.guide.selfRighting)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 0), upo.scriptable.selfRightingSpeed * Time.deltaTime);
 
         //bounce and off screen detecion
         if(PonyBoxManager.instance.borderMode != BorderMode.NON)
@@ -199,7 +222,7 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         }
 
         //flip in not upside down
-        if (transform.rotation.z < 0.5 && transform.rotation.z > -0.5)
+        if (upo.guide.flip && transform.rotation.z < 0.5 && transform.rotation.z > -0.5)
             spriteRenderer.flipX = rigidBody.velocity.x > 0;
 
         //wirlpool

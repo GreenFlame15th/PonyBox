@@ -41,6 +41,7 @@ public class SpriteMaker : MonoBehaviour
                 {
                     pony.inSpawningQueue = false;
                     pony.gameObject.SetActive(true);
+                    pony.ponyCollider.enabled = true;
                     pony.InitPush();
                     yield return new WaitForSeconds(spawnDelay);
                 }
@@ -58,6 +59,7 @@ public class SpriteMaker : MonoBehaviour
     {
         PonyController pony = MakeInstance(upo);
         pony.InitPush();
+        pony.gameObject.SetActive(true);
     }
 
     public PonyController MakeInstance(UnifiedPonyObject upo)
@@ -72,10 +74,10 @@ public class SpriteMaker : MonoBehaviour
     public void EnqueueUPO(UnifiedPonyObject upo)
     {
         PonyController pony = MakeInstance(upo);
-        pony.gameObject.SetActive(false);
         pony.ponyCollider.enabled = false;
         pony.inSpawningQueue = true;
         ponyQueue.Enqueue(pony);
+        pony.gameObject.SetActive(false);
     }
 
     public void ClearQueue()

@@ -21,6 +21,8 @@ public class PonyBoxManager : MonoBehaviour
     public PonyManagmenMenu ponyManagmenMenu;
     public AreYouSurePopUp areYouSurePopUp;
     public Alarte alarte;
+    public GameObject popUps;
+    public DefoultPonies defoultPonies;
 
     //global for ponyBox
     public bool sugarRush;
@@ -28,9 +30,16 @@ public class PonyBoxManager : MonoBehaviour
     public bool whirlpool;
     public BorderMode borderMode;
     public ClickMode ponyClickMode;
-
-    public List<Texture2D> defoultPonies;
-    public GameObject popUps;
+    public List<AnimatsionConfig> animatsionConfigs;
+    
+    public void SafeCurrentAsDefount()
+    {
+        defoultPonies.list = new List<AnimatsionGuide>();
+        for (int i = 0; i < ponies.Count; i++)
+        {
+            defoultPonies.list.Add(ponies[i].guide);
+        }
+    }
 
     private void Start()
     {
@@ -46,10 +55,10 @@ public class PonyBoxManager : MonoBehaviour
 
     public void loadDEfoultPonies()
     {
+        /*
         for (int i = 0; i < defoultPonies.Count; i++)
         {
             //need to be implemented;
-            /*
             UnifiedPonyObject upo = spriteMaker.MakePonyFromSprite(defoultPonies[i], 16, false);
 
             if (upo != null)
@@ -60,8 +69,9 @@ public class PonyBoxManager : MonoBehaviour
             {
                 Debug.Log("Faild to load defoult pony #" + i);
             }
-            */
+
         }
+        */
     }
 
     // Update is called once per frame

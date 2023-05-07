@@ -44,8 +44,4 @@ public class StaticAnimatorImage : MonoBehaviour
         }
     }
 
-    internal void StartAnimetsion()
-    {
-        throw new NotImplementedException();
-    }
 }

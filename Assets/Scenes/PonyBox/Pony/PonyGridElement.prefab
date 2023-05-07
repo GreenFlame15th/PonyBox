@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 2180957195824343958}
   - component: {fileID: 6397386016005492775}
   - component: {fileID: 4001245288669053141}
+  - component: {fileID: 2942996573027720349}
   m_Layer: 5
   m_Name: PonyGridElement
   m_TagString: Untagged
@@ -190,10 +191,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 818179010544706224}
-  upo: {fileID: 0}
   count: {fileID: 9146335711008801603}
   selected: 0
   selector: {fileID: 2164430346199643072}
+--- !u!114 &2942996573027720349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685665286663972325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &6718719906513155492
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,14 +368,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8358553969935787262}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6390626326686596512}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -418,5 +431,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d52dc4103b7f442b05664b8c4f586b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upo: {fileID: 0}
   image: {fileID: 5022123890700548731}
