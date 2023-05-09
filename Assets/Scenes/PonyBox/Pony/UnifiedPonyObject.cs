@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class UnifiedPonyObject
     public PonyGridElement ponyGridElement;
     public AnimatsionGuide guide;
 
+    public int id;
+
     public UnifiedPonyObject()
     {
         instances = new List<PonyController>();
@@ -27,13 +30,28 @@ public class UnifiedPonyObject
         numberOfSprites = sprites.Count;
     }
 
-    public void ReadyToGo()
+    public void ReadyToGo(bool isNew = true)
     {
-        PonyBoxManager.instance.ponies.Add(this);
-
-        ponyGridElement = GameObject.Instantiate(PonyBoxManager.instance.spriteMaker.ponyGridElmentPrefab, PonyBoxManager.instance.spriteMaker.ponyGrid.transform).GetComponent<PonyGridElement>();
+        if(isNew)
+        {
+            id = PonyBoxManager.instance.ponies.Count;
+            PonyBoxManager.instance.ponies.Add(this);
+            ponyGridElement = GameObject.Instantiate(PonyBoxManager.instance.spriteMaker.ponyGridElmentPrefab, PonyBoxManager.instance.spriteMaker.ponyGrid.transform).GetComponent<PonyGridElement>();
+        }
+        else
+        {
+            for (int i = 0; i < instances.Count; i++)
+            {
+                instances[i].SetUp(this);
+            }
+        }
         ponyGridElement.SetUp(this);
         ponyGridElement.display.transform.localScale = new Vector3(guide.scaleX, guide.scaleY, 1);
+
+        if(PonyBoxManager.instance.loadingPoniesDone)
+        {
+            Save();
+        }
     }
     public void addPonyController(PonyController instance)
     {
@@ -89,8 +107,35 @@ public class UnifiedPonyObject
             pony.Fold();
         }
 
+        for (int i = id+1; i < PonyBoxManager.instance.ponies.Count; i++)
+        {
+            PonyBoxManager.instance.ponies[i].id--;
+
+            File.Delete(Application.persistentDataPath + scriptable.path + (i - 1) + scriptable.format);
+
+            File.Move(
+                Application.persistentDataPath + scriptable.path + i + scriptable.format,
+                Application.persistentDataPath + scriptable.path + (i-1) + scriptable.format);
+        }
+
+        File.Delete(Application.persistentDataPath + scriptable.path + (
+            PonyBoxManager.instance.ponies.Count - 1
+            ) + scriptable.format);
+
         PonyBoxManager.instance.ponies.Remove(this);
         GameObject.Destroy(ponyGridElement.gameObject);
     }
-    
+
+    public void Save()
+    {
+        if (!Directory.Exists(Application.persistentDataPath + scriptable.path))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + scriptable.path);
+        }
+
+        string json = JsonUtility.ToJson(guide);
+        File.WriteAllText(Application.persistentDataPath + scriptable.path + id + scriptable.format, json);
+    }
+
+
 }

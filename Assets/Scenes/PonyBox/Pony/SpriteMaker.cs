@@ -19,12 +19,41 @@ public class SpriteMaker : MonoBehaviour
 
     public void makePony(byte[] fileData, bool gif)
     {
-        AnimatsionConfig config = GameObject.Instantiate(
+        GameObject.Instantiate(
             animatsionConfigPreFab,
             PonyBoxManager.instance.popUps.transform
-            ).GetComponent<AnimatsionConfig>();
-        config.Invoke(fileData, gif);
+            ).GetComponent<AnimatsionConfig>()
+            .Invoke(fileData, gif);
     }
+
+    public void makePonyFromList(List<AnimatsionGuide> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log("Makeing pony #" + i);
+            makePonyFromGuide(list[i]);
+        }
+    }
+
+    public void makePonyFromGuide(AnimatsionGuide guide)
+    {
+        Instantiate(
+             animatsionConfigPreFab,
+            PonyBoxManager.instance.popUps.transform
+            ).GetComponent<AnimatsionConfig>()
+                .ReadGuide(guide, guide.fileData)
+                .Finish();
+    }
+
+    public void edit(UnifiedPonyObject upo)
+    {
+        Instantiate(
+            animatsionConfigPreFab,
+            PonyBoxManager.instance.popUps.transform
+            ).GetComponent<AnimatsionConfig>()
+            .openEdit(upo);
+    }
+
 
     public void StartSetUp()
     {

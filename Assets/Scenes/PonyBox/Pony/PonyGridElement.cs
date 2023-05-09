@@ -25,7 +25,7 @@ public class PonyGridElement : MonoBehaviour, IPointerClickHandler
     public void SetUp(UnifiedPonyObject upo) 
     {
         this.upo = upo; 
-        display.StartAnimetsion(upo);
+        display.upo = upo;
         display.transform.localScale =
             new Vector3(1, upo.guide.ySclaeForPrewView, 1);
     }

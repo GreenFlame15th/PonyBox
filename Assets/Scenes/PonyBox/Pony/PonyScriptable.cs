@@ -22,4 +22,7 @@ public class PonyScriptable : ScriptableObject
     public float baseSpriteX;
     public float baseSpriteY;
     public float colliderPadding;
+    public string path;
+    public string format;
+    public float neverStopForce;
 }

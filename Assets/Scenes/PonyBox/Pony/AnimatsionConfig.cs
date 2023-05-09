@@ -1,5 +1,6 @@
 using B83.Image.GIF;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
@@ -21,11 +22,19 @@ public class AnimatsionConfig : MonoBehaviour
         guide = new AnimatsionGuide(fileData, isAnimatedGif);
         upo = new UnifiedPonyObject();
 
+        return setUp(true);
+    }
 
+    public AnimatsionConfig setUp(bool overWriteFrames)
+    {
         if (guide.isAnimatedGif)
             try
             {
-                guide.numberOfFrames = MakePonyFromGif();
+                if (overWriteFrames)
+                    guide.numberOfFrames = MakePonyFromGif();
+                else
+                    MakePonyFromGif();
+
                 gifToggle.SoftToggle();
             }
             catch
@@ -37,7 +46,7 @@ public class AnimatsionConfig : MonoBehaviour
 
         ReAnimiateSprite();
         framesField.text = guide.numberOfFrames + "";
-        previewImage.StartAnimetsion(upo);
+        previewImage.upo = upo;
         return this;
     }
 
@@ -51,7 +60,7 @@ public class AnimatsionConfig : MonoBehaviour
             }
             catch (Exception e)
             {
-                PonyBoxManager.instance.alarte.Invoke("Failed to read gif","Your sprite could not be animated as gif. Make sure it is falid gif");
+                PonyBoxManager.instance.alarte.Invoke("Failed to read gif","Your sprite could not be animated as gif. Make sure it is valid gif");
 #if UNITY_EDITOR
                 Debug.LogError(e);
 #endif
@@ -81,29 +90,73 @@ public class AnimatsionConfig : MonoBehaviour
         reScale();
         return this;
     }
-    public void AutoFinish(AnimatsionGuide guide)
+    public AnimatsionConfig ReadGuide(AnimatsionGuide guide, byte[] fileData)
     {
-        this.guide.coppy(guide);
-        ReMakeSprite();
-        Finish();
+        this.guide = new AnimatsionGuide(guide, fileData);
+        if(upo == null)
+        {
+            upo = new UnifiedPonyObject();
+        }
+        setUp(false);
+        previewImage.upo = upo;
+        return this;
     }
+    public MiltySelectElement flipNo;
+    public MiltySelectElement selfRightingNo;
+    public bool isEditing = false;
+    public AnimatsionConfig openEdit(UnifiedPonyObject upo)
+    {
+        this.upo = upo;
+        guide = upo.guide;
+        framesField.text = guide.numberOfFrames + "";
+        previewImage.upo = upo;
+
+        writeX();
+        writeY();
+
+        if(guide.isAnimatedGif)
+            gifToggle.SoftToggle();
+
+        if (!guide.selfRighting)
+            selfRightingNo.SoftToggle();
+
+        if (!guide.flip)
+            flipNo.SoftToggle();
+
+        ReMakeSprite();
+        reScale();
+        isEditing = true;
+
+        return this;
+    }
+
     public void Finish()
     {
         upo.guide = guide;
-        upo.ReadyToGo();
+        MakePonyFromSprite();
+        upo.ReadyToGo(!isEditing);
         PonyBoxManager.instance.animatsionConfigs.Remove(this);
         GameObject.Destroy(this.gameObject);
     }
-
     public void ApplyToAll()
     {
         AnimatsionGuide guideToApply = this.guide;
-        Finish();
-        while(PonyBoxManager.instance.animatsionConfigs.Count > 0)
+        PonyBoxManager.instance.animatsionConfigs.Remove(this);
+
+        Debug.Log(PonyBoxManager.instance.animatsionConfigs.Count);
+
+        AnimatsionConfig config;
+        while (PonyBoxManager.instance.animatsionConfigs.Count > 0)
         {
-            PonyBoxManager.instance.animatsionConfigs[0].AutoFinish(guideToApply);
+            config = PonyBoxManager.instance.animatsionConfigs[0];
+            config.ReadGuide(guideToApply, config.guide.fileData);
+            config.Finish();
+            Debug.Log(PonyBoxManager.instance.animatsionConfigs.Count);
         }
+
+        Finish();
     }
+
     private void Awake()
     {
         PonyBoxManager.instance.animatsionConfigs.Add(this);
@@ -111,20 +164,24 @@ public class AnimatsionConfig : MonoBehaviour
 
     public void Discard()
     {
-        PonyBoxManager.instance.areYouSurePopUp.Invoke("Discard changes?", () => GameObject.Destroy(this.gameObject));
+
+        PonyBoxManager.instance.areYouSurePopUp.Invoke("Discard changes?", () => {
+            PonyBoxManager.instance.animatsionConfigs.Remove(this);
+            Destroy(this.gameObject);
+        
+        });
     }
 
     public void MakePonyFromPng()
     {
-        Texture2D
         tex = new Texture2D(2, 2);
-        tex.LoadImage(guide.fileData); //..this will auto-resize the texture dimensions.
-        this.tex = tex;
-
+        tex.LoadImage(guide.fileData);
     }
 
     public UnifiedPonyObject MakePonyFromSprite()
     {
+        Debug.Log("sprtieFormating");
+
         tex.filterMode = FilterMode.Point;
 
         int spriteWidth = tex.width / guide.numberOfFrames;
@@ -147,6 +204,7 @@ public class AnimatsionConfig : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("trying ot make pony with empty sprties");
             return null;
         }
     }
@@ -324,9 +382,9 @@ public class AnimatsionGuide
         flip = true;
         selfRighting = true;
     }
-
-    public void coppy(AnimatsionGuide orgin)
+    public AnimatsionGuide(AnimatsionGuide orgin, byte[] fileData)
     {
+        this.fileData = fileData;
         this.isAnimatedGif = orgin.isAnimatedGif;
         this.numberOfFrames = orgin.numberOfFrames;
         this.flip = orgin.flip;

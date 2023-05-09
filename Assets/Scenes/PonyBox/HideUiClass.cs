@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class HideUiClass : MonoBehaviour
 {
     public bool on;
-    public bool warn;
     public GameObject[] ui;
     public bool wasClicked;
     public GameObject ani_ui;
@@ -28,11 +27,12 @@ public class HideUiClass : MonoBehaviour
 
     public void Toggle()
     {
-        if(warn)
+        if(PonyBoxManager.instance.savedSettings.uiWorn)
         {
             PonyBoxManager.instance.areYouSurePopUp.Invoke("You are about to hide UI, you can bring it back by pressing escape (back on mobile) or tapping the rightmost part of the screen.", () =>
             {
-                warn = false;
+                PonyBoxManager.instance.savedSettings.uiWorn = false;
+                PonyBoxManager.instance.savedSettings.save();
                 Toggle();
             });
         }

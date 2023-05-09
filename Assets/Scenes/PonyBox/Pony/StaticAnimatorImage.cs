@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,17 +8,9 @@ public class StaticAnimatorImage : MonoBehaviour
     private int currentFrame = 0;
     public Image image;
 
-    public void StartAnimetsion(UnifiedPonyObject upo)
-    {
-        this.upo = upo;
-        StartCoroutine(Animator());
-
-    }
-
     private void OnEnable()
     {
-        if(upo != null)
-            StartCoroutine(Animator());
+        StartCoroutine(Animator());
     }
 
     private IEnumerator Animator()
@@ -28,14 +18,15 @@ public class StaticAnimatorImage : MonoBehaviour
 
         while (true)
         {
-            if(upo != null)
+            if(upo != null && upo.sprites != null && upo.sprites.Length > 0)
             {
                 currentFrame++;
                 if (currentFrame >= upo.numberOfSprites)
                 {
                     currentFrame = 0;
                 }
-                image.sprite = upo.sprites[currentFrame];
+                if(upo.sprites[currentFrame] != null)
+                    image.sprite = upo.sprites[currentFrame];
                 yield return new WaitForSeconds(upo.scriptable.staticDelay);
             }
             else

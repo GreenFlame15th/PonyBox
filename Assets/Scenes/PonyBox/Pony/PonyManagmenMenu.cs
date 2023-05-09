@@ -69,38 +69,39 @@ public class PonyManagmenMenu : MonoBehaviour
 
     public void spawnSelected(int count)
     {
-        if (count > 0)
-        {
-            List<UnifiedPonyObject> currenctlySelected = CurrenctlySelected();
+        spawnFromList(count, CurrenctlySelected());
+    }
 
-            if (currenctlySelected.Count > 0)
+    public void spawnFromList(int count, List<UnifiedPonyObject> list)
+    {
+        if (count > 0)
+
+            if (list.Count > 0)
             {
                 //special behavour for first enqueue
                 if (PonyBoxManager.instance.spriteMaker.ponyQueue.Any())
                 {
-                    currenctlySelected[0].addInstance();
+                    list[0].addInstance();
                 }
                 else
                 {
-                    currenctlySelected[0].enqueueInstance();
+                    list[0].enqueueInstance();
                 }
 
-                for (int i = 1; i < currenctlySelected.Count; i++)
+                for (int i = 1; i < list.Count; i++)
                 {
-                    currenctlySelected[i].enqueueInstance();
+                    list[i].enqueueInstance();
                 }
 
                 //enqueue all
                 for (int i = 1; i < count; i++)
                 {
-                    for (int j = 0; j < currenctlySelected.Count; j++)
+                    for (int j = 0; j < list.Count; j++)
                     {
-                        currenctlySelected[j].enqueueInstance();
+                        list[j].enqueueInstance();
                     }
                 }
             }
-
-        }
     }
 
     public int destroyWorning;
@@ -134,6 +135,15 @@ public class PonyManagmenMenu : MonoBehaviour
                     upo.destryoNInstances(n);
                 }
             }
+        }
+    }
+    
+    public void editSelected()
+    {
+        List<UnifiedPonyObject> currenctlySelected = CurrenctlySelected();
+        for (int i = 0; i < currenctlySelected.Count; i++)
+        {
+            PonyBoxManager.instance.spriteMaker.edit(currenctlySelected[i]);
         }
     }
     public void removeAllFromSelected()

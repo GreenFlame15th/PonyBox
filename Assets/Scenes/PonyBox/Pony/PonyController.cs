@@ -216,9 +216,9 @@ public class PonyController : Queueable, IPointerDownHandler, IBeginDragHandler,
         }
 
         //sugar rush mode
-        if (PonyBoxManager.instance.sugarRush && !beginDraged && Math.Abs(rigidBody.velocity.x + rigidBody.velocity.y) < upo.scriptable.speedLimit)
+        if (PonyBoxManager.instance.sugarRush && !beginDraged && Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y) < upo.scriptable.speedLimit)
         {
-            AddForwardForce();
+            rigidBody.AddForce(rigidBody.velocity.normalized * upo.scriptable.neverStopForce * Time.fixedDeltaTime);
         }
 
         //flip in not upside down

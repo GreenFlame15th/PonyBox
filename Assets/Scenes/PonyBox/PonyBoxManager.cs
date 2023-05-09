@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class PonyBoxManager : MonoBehaviour
     public GameObject heartPreFab;
     public GameObjectQueue heartQueue;
     public PonyScriptable ponyScriptable;
+    public bool loadingPoniesDone;
 
     //object refrence
     public Camera mainCamer;
@@ -31,6 +33,7 @@ public class PonyBoxManager : MonoBehaviour
     public BorderMode borderMode;
     public ClickMode ponyClickMode;
     public List<AnimatsionConfig> animatsionConfigs;
+    public PonyBoxSettingSave savedSettings;
     
     public void SafeCurrentAsDefount()
     {
@@ -45,34 +48,48 @@ public class PonyBoxManager : MonoBehaviour
     {
         ponies = new List<UnifiedPonyObject>();
         heartQueue = new GameObjectQueue(heartPreFab);
-
         instance = this;
+        PonyBoxSettingSave.load();
+
         ponyManagmenMenu.UpdateSpawnDelay();
         spriteMaker.StartSetUp();
 
-        loadDEfoultPonies();
+        loadSavedPonies();
+
+        if(!savedSettings.defoultsWhereLoaded)
+        {
+            loadDEfoultPonies();
+            savedSettings.defoultsWhereLoaded = true;
+            savedSettings.save();
+        }
+        ponyManagmenMenu.spawnFromList(1, ponies);
+
+
     }
 
     public void loadDEfoultPonies()
     {
-        /*
-        for (int i = 0; i < defoultPonies.Count; i++)
-        {
-            //need to be implemented;
-            UnifiedPonyObject upo = spriteMaker.MakePonyFromSprite(defoultPonies[i], 16, false);
-
-            if (upo != null)
-            {
-                upo.enqueueInstance();
-            }
-            else
-            {
-                Debug.Log("Faild to load defoult pony #" + i);
-            }
-
-        }
-        */
+        spriteMaker.makePonyFromList(defoultPonies.list);
     }
+
+    public void loadSavedPonies()
+    {
+        int i = 0;
+        while(File.Exists(Application.persistentDataPath + ponyScriptable.path + i + ponyScriptable.format))
+        {
+            string json = File.ReadAllText(Application.persistentDataPath + ponyScriptable.path + i + ponyScriptable.format);
+            spriteMaker.makePonyFromGuide(JsonUtility.FromJson<AnimatsionGuide>(json));
+			
+			i++;
+
+            if(i == int.MaxValue)
+            {
+                throw (new Exception("Too many files"));
+            }
+        }
+
+        loadingPoniesDone = true;
+}
 
     // Update is called once per frame
     void Update()

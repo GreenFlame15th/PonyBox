@@ -17,7 +17,7 @@ MonoBehaviour:
   staticDelay: 0.045
   selfRightingSpeed: 35
   backtoScreenForce: 50
-  speedLimit: 0.1
+  speedLimit: 1.5
   bouceLinency: 0.09
   minCollisonVelocty: 0.2
   whirlpoolPullForce: 93.6
@@ -52,3 +52,6 @@ MonoBehaviour:
   baseSpriteX: 45
   baseSpriteY: 57
   colliderPadding: 0.17
+  path: /ponies/pony
+  format: .pony
+  neverStopForce: 1.4
